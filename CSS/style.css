@@ -1,11 +1,14 @@
-image{
-    width: 450px;
-    height: 450px;
+section{
+    display: block;
+}
+img{
+    width: 200px;
+    height: 200px;
 }
 div{ 
     display: inline-block;
     margin: 5%;
-    margin-left: 15%;
+    margin-left: 10%;
 
 }
 #table{
@@ -45,6 +48,10 @@ th {
   
     width: 100px ;
     height: 100px ;
-    border: 1px solid black;
+    border: 1px solid rgb(53, 10, 10);
 
+}
+canvas{
+    width: 1000px;
+    height: 1000px;
 }
