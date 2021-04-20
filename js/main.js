@@ -1,21 +1,22 @@
 'use strict';
-let x = 0;
-let y = 0;
 let leftImageElement = document.getElementById('img');
 let middleImageElement = document.getElementById('img1');
 let rightImageElement = document.getElementById('img2');
 let counts = 0;
-let maxAttempts = 20;
+let maxAttempts = 3;
 let leftIndex;
 let rightIndex;
 let middleIndex;
 let arrOfVotes = [];
+
 let arrOfShown = [];
 let arrOfnames = [];
 let arrOfisShown = [];
 BusMall.allImages = [];
+
 let table = document.getElementById('table');
 let container = document.getElementById('cont');
+let button = document.getElementById('btn');
 
 
 new BusMall('bag', '../images/bag.jpg');
@@ -47,6 +48,7 @@ function BusMall(productName, imagePath) {
     arrOfnames.push(this.productName);
 
 };
+getLocalStorage();
 
 ///////////////////////////////////////////////////////////////////
 
@@ -54,6 +56,26 @@ function genrateRandomIndex() {
     return Math.floor(Math.random() * BusMall.allImages.length);
 
 }
+
+///////////////////////////////////////////////////////////////////
+function saveToLs() {
+
+    let arrStr = JSON.stringify(BusMall.allImages);
+    localStorage.setItem('products', arrStr);
+
+}
+
+
+///////////////////////////////////////////////////////////////////
+
+function getLocalStorage() {
+    let data = localStorage.getItem('products');
+    let order = JSON.parse(data);
+    if (order !== null) {
+        BusMall.allImages = order;
+    }
+}
+
 
 ///////////////////////////////////////////////////////////////////
 
@@ -89,31 +111,35 @@ container.addEventListener('click', handleClicking);
 
 function handleClicking(event) {
 
-    if (event.target.id === 'img' || event.target.id === 'img1' || event.target.id === 'img2') {
-        counts++;
-        if (maxAttempts >= counts) {
+    if (maxAttempts >= counts) {
+        if (event.target.id === 'img' || event.target.id === 'img1' || event.target.id === 'img2') {
+            counts++;
             if (event.target.id === 'img') {
                 BusMall.allImages[leftIndex].votes++;
-                y++;
             } else if (event.target.id === 'img1') {
                 BusMall.allImages[rightIndex].votes++;
-                y++;
             } else if (event.target.id === 'img2') {
                 BusMall.allImages[middleIndex].votes++;
-                y++;
             }
-            if (counts != maxAttempts)
-                renderImages();
-            else {
-                alert('you have finished');
 
-                container.removeEventListener('click', handleClicking);
+            if (counts != maxAttempts) {
+                renderImages();
+            } else {
+
+                alert('you have finished');
+                saveToLs();
+                button.addEventListener('click', tableBtn);
+                counts = 0;
+                handleClicking();
             }
+
+        } else {
+            alert('you should click on the image');
 
         }
-    } else {
-        alert('you should click on the image');
+
     }
+
 }
 ///////////////////////////////////////////////////////////////////
 
@@ -146,7 +172,7 @@ function tableRender() {
         tr.appendChild(td);
         td.textContent = BusMall.allImages[i].productName;
     }
-
+    voteRender();
 }
 ///////////////////////////////////////////////////////////////////
 
@@ -162,10 +188,9 @@ function imageShownRender() {
         tr.appendChild(td);
         td.textContent = BusMall.allImages[i].imageShown;
         arrOfShown.push(BusMall.allImages[i].imageShown);
-
-
-
     }
+    chart();
+
 }
 ///////////////////////////////////////////////////////////////////
 function chart() {
@@ -195,13 +220,11 @@ function chart() {
 
 ///////////////////////////////////////////////////////////////////
 
-let button = document.getElementById('btn');
-button.addEventListener('click', tableBtn);
+
 
 function tableBtn() {
     tableRender();
-    voteRender();
-    chart();
-
-        button.removeEventListener('click', tableBtn);
+    button.removeEventListener('click', tableBtn);
 }
+
+///////////////////////////////////////////////////////////////////
