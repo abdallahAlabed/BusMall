@@ -1,22 +1,17 @@
 'use strict';
-let x = 0;
-let y = 0;
 let leftImageElement = document.getElementById('img');
 let middleImageElement = document.getElementById('img1');
 let rightImageElement = document.getElementById('img2');
 let counts = 0;
-let maxAttempts = 20;
+let maxAttempts = 25;
 let leftIndex;
 let rightIndex;
 let middleIndex;
 let arrOfVotes = [];
-let arrOfShown = [];
 let arrOfnames = [];
-let arrOfisShown = [];
 BusMall.allImages = [];
 let table = document.getElementById('table');
 let container = document.getElementById('cont');
-
 
 new BusMall('bag', '../images/bag.jpg');
 new BusMall('banana', '../images/banana.jpg');
@@ -94,13 +89,10 @@ function handleClicking(event) {
         if (maxAttempts >= counts) {
             if (event.target.id === 'img') {
                 BusMall.allImages[leftIndex].votes++;
-                y++;
             } else if (event.target.id === 'img1') {
                 BusMall.allImages[rightIndex].votes++;
-                y++;
             } else if (event.target.id === 'img2') {
                 BusMall.allImages[middleIndex].votes++;
-                y++;
             }
             if (counts != maxAttempts)
                 renderImages();
@@ -198,10 +190,18 @@ function chart() {
 let button = document.getElementById('btn');
 button.addEventListener('click', tableBtn);
 
+<<<<<<< HEAD
 function tableBtn() {
     tableRender();
     voteRender();
     chart();
 
         button.removeEventListener('click', tableBtn);
+=======
+function tableRender() {
+    
+    voteRender();
+    chart();
+    button.removeEventListener('click', tableRender);
+>>>>>>> ef44b4273cae275afc85fd584aed1d18cc46b44c
 }
