@@ -61,24 +61,24 @@ function renderImages() {
     leftIndex = genrateRandomIndex();
     rightIndex = genrateRandomIndex();
     middleIndex = genrateRandomIndex();
-    while (leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex || arrOfShown.includes(leftIndex) || arrOfShown.includes(rightIndex) || arrOfShown.includes(middleIndex)) {
+    while (leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex || arrOfisShown.includes(leftIndex) || arrOfisShown.includes(rightIndex) || arrOfisShown.includes(middleIndex)) {
         leftIndex = genrateRandomIndex();
         rightIndex = genrateRandomIndex();
         middleIndex = genrateRandomIndex();
 
     }
-    arrOfShown = [];
+    arrOfisShown = [];
     leftImageElement.src = BusMall.allImages[leftIndex].imagePath;
     BusMall.allImages[leftIndex].imageShown++;
-    arrOfShown.push(leftIndex);
+    arrOfisShown.push(leftIndex);
     rightImageElement.src = BusMall.allImages[rightIndex].imagePath;
     BusMall.allImages[rightIndex].imageShown++;
-    arrOfShown.push(rightIndex);
+    arrOfisShown.push(rightIndex);
     middleImageElement.src = BusMall.allImages[middleIndex].imagePath;
     BusMall.allImages[middleIndex].imageShown++;
-    arrOfShown.push(middleIndex);
+    arrOfisShown.push(middleIndex);
 }
-console.log(arrOfShown);
+
 ///////////////////////////////////////////////////////////////////
 
 renderImages();
@@ -196,11 +196,12 @@ function chart() {
 ///////////////////////////////////////////////////////////////////
 
 let button = document.getElementById('btn');
-button.addEventListener('click', tableRender);
+button.addEventListener('click', tableBtn);
 
-function tableRender() {
+function tableBtn() {
+    tableRender();
     voteRender();
     chart();
 
-    button.removeEventListener('click', tableRender);
+        button.removeEventListener('click', tableBtn);
 }
