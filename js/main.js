@@ -3,7 +3,7 @@ let leftImageElement = document.getElementById('img');
 let middleImageElement = document.getElementById('img1');
 let rightImageElement = document.getElementById('img2');
 let counts = 0;
-let maxAttempts = 3;
+let maxAttempts = 25;
 let leftIndex;
 let rightIndex;
 let middleIndex;
@@ -196,7 +196,7 @@ function imageShownRender() {
 function chart() {
     let ctx = document.getElementById('myChart')
     let myChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: arrOfnames,
             datasets: [{
